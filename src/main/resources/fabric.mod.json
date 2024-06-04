@@ -1,1 +1,24 @@
-
+{
+  "schemaVersion": 1,
+  "id": "emptysync",
+  "version": "${version}",
+  "name": "EmptySync",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/Isaac Iwasaki/EmptySync"
+  },
+  "license": "GPL-3.0",
+  "icon": "icon.jpg",
+  "environment": "server",
+  "entrypoints": {
+    "server": [
+      "empty.sync.emptysync.EmptySync"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
