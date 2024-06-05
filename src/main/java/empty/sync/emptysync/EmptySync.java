@@ -53,7 +53,7 @@ public class EmptySync implements DedicatedServerModInitializer {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 String serialized = response.body();
                 if (!serialized.equals("NX"))
-                    SyncableInventory.deserialize(response.body(), handler.player.getInventory());
+                    SerializableInventory.deserialize(response.body(), handler.player.getInventory());
                 else
                     LOGGER.info("No data for player {}", handler.player.getName().toString());
             } catch (Exception e) {
@@ -63,7 +63,7 @@ public class EmptySync implements DedicatedServerModInitializer {
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             try {
-                SyncableInventory inventory = new SyncableInventory(handler.player.getInventory());
+                SerializableInventory inventory = new SerializableInventory(handler.player.getInventory());
                 String serialized = inventory.serialize();
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(defaultURL + handler.player.getUuid().toString()))
