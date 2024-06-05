@@ -54,6 +54,8 @@ public class EmptySync implements DedicatedServerModInitializer {
                 String serialized = response.body();
                 if (!serialized.equals("NX"))
                     SyncableInventory.deserialize(response.body(), handler.player.getInventory());
+                else
+                    LOGGER.info("No data for player {}", handler.player.getName().toString());
             } catch (Exception e) {
                 LOGGER.error("Exception while JOIN: {}", e.toString());
             }
@@ -67,9 +69,7 @@ public class EmptySync implements DedicatedServerModInitializer {
                         .uri(URI.create(defaultURL + handler.player.getUuid().toString()))
                         .POST(HttpRequest.BodyPublishers.ofString(serialized))
                         .build();
-                client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-                    LOGGER.info("Response: {}", response.body());
-                });
+                client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> LOGGER.info("Response: {}", response.body()));
             } catch (Exception e) {
                 LOGGER.error("Exception while DISCONNECT: {}", e.toString());
             }

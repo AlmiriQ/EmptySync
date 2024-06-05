@@ -100,12 +100,10 @@ public class SyncableInventory implements Serializable {
 
     static ItemStack deserializeItemStack(Player.Item item) {
         ItemStack result = new ItemStack(Item.byRawId(item.id), item.count);
-//        Gson parser = new Gson();
         if ((item.NBT != null) && (item.count > 0)) {
-            LOGGER.info("nbt: {}", new String(Base64.getDecoder().decode(item.NBT)));
             JsonObject je = JsonParser.parseString(new String(Base64.getDecoder().decode(item.NBT))).getAsJsonObject();
             result.setNbt(NBTConverter.toNbtCompound(je));
-        } else LOGGER.info("no nbt for item {}", result.getItem().toString());
+        }
         return result;
     }
 

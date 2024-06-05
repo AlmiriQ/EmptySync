@@ -7,20 +7,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import net.minecraft.nbt.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // thank you!
 
 final class NBTConverter {
-    public static final String MOD_ID = "empty-sync-cv";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
     public static NbtElement toNbt(JsonElement jsonElement) {
         if (jsonElement instanceof JsonPrimitive jsonPrimitive) {
-            LOGGER.warn("JSON element b: {}", jsonPrimitive.isBoolean());
-            LOGGER.warn("JSON element n: {}", jsonPrimitive.isNumber());
-            LOGGER.warn("JSON element s: {}", jsonPrimitive.isString());
             if (jsonPrimitive.isBoolean()) {
                 boolean value = jsonPrimitive.getAsBoolean();
                 if (value)
@@ -59,7 +51,6 @@ final class NBTConverter {
         } else if (jsonElement instanceof JsonNull) {
             return new NbtCompound();
         }
-        LOGGER.warn("JSON element: {}", jsonElement);
         throw new AssertionError();
     }
 
