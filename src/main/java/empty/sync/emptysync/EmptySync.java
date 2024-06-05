@@ -50,6 +50,8 @@ public class EmptySync implements DedicatedServerModInitializer {
                     .build();
             try {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                if (response.statusCode() != 200)
+                    throw new Exception("Server returned error: " + response.body());
                 String serialized = response.body();
                 if (!serialized.equals("NX"))
                     SerializableInventory.deserialize(response.body(), handler.player.getInventory());
