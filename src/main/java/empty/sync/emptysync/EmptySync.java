@@ -24,7 +24,6 @@ public class EmptySync implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        LOGGER.info("Hello Fabric world!");
         Path configPath = Paths.get("empty-sync.json");
         if (!configPath.toFile().exists()) {
             LOGGER.error("Config file (empty-sync.json) not found!");
